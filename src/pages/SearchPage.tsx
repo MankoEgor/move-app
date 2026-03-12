@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import { searchMovies } from "../api/tmdb";
+import MovieCard from "../components/MoveCard";
 
 function SearchPage(){
     const [query, setQuery] = useState("");
@@ -38,10 +39,12 @@ function SearchPage(){
 
             <div>
                 {movies.map((movie: any) => (
-                    <div key={movie.id}>
-                        <h2>{movie.title}</h2>
-                        <p>{movie.overview}</p>
-                    </div>
+                    <MovieCard
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.title}
+                    poster_path={movie.poster_path}
+                    vote_average={movie.vote_average} />
                 ))}
             </div>
         </div>
