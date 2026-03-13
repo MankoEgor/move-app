@@ -1,0 +1,123 @@
+.backdrop {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+
+}
+
+.backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+
+.backdropOverlay {
+  position: absolute;
+  justify-content: end;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%);
+}
+
+.backdropContent {
+  position: absolute;
+  bottom: 40px;
+  left: 48px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.backBtn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 8px 16px;
+  font-size: 13px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.statCard {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.statValue {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.overview {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444;
+  max-width: 800px;
+}
+
+.moviePageDiv{
+    margin : 0 80px;
+}
+
+.infoDiv{
+    display: flex;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.infoItem{
+    width: 22%;
+    height: 100px;
+    display: grid;
+    gap: 5px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 1px solid #e9ecef;
+    padding: 25px 30px;
+}
+
+.titleInfo{
+    font-size: 9px;
+    color: #888888;
+}
+
+.info{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+span{
+    color: #c8f135;
+}
+
+.movieImage{
+    width: 100%;
+    border-radius: 15px;
+    margin: 40px 0;
+    border-radius: 20px;
+}

@@ -1,28 +1,22 @@
 import { Link, useLocation } from "react-router-dom";
-import '../styles/navBar.css'
+import styles from './Navbar.module.css';
 
 function NavBar(){
     let location = useLocation();
 
     return(
-        <nav className="navbar">
-            <div className="logo">CINE</div>
-            <ul className="nav-links">
+        <nav className={styles.navbar}>
+            <div className={styles.logo}>CINE</div>
+            <ul className={styles.navLinks}>
                 <li>
                     <Link 
                     to="/"
-                    style={{textDecoration: "none", 
-                        color: '#1A1A1A', 
-                        fontSize: '24px'}}
-                    className={location.pathname === "/" ? "active" : ""}>ПОИСК</Link>
+                    className={location.pathname === "/" ? styles.active : ""}>ПОИСК</Link>
                 </li>
                 <li>
                     <Link 
                     to="/favorites"
-                    style={{textDecoration: "none", 
-                            color: '#1A1A1A', 
-                            fontSize: '24px'}}
-                    className={location.pathname === "/favorites" ? "active" : ""}>ИЗБРАННОЕ</Link>
+                    className={location.pathname === "/favorites" ? styles.active : ""}>ИЗБРАННОЕ</Link>
                 </li>
             </ul>
         </nav>

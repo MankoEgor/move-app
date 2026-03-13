@@ -1,5 +1,16 @@
-.movie-card{
-    width: 280px;
-    height: 450px;
-    object-fit: contain;
+.movieCard{
+    width: 250px;
+    display: inline-flex;
 }
+
+.movieCardImage{
+    width: 100%;
+    height: 80%;
+    position: relative;
+}
+
+.movieInfo{
+    width: 100%;
+    height: 20%;
+}
+

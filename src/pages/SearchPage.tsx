@@ -1,11 +1,20 @@
 import {useState, useEffect} from "react";
-import { searchMovies } from "../api/tmdb";
+import { searchMovies, getTopRate } from "../api/tmdb";
 import MovieCard from "../components/MoveCard";
+
+import '../styles/index.css'
 
 function SearchPage(){
     const [query, setQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        getTopRate()
+            .then(result => {
+                setMovies(result);
+            });
+    }, []);
 
     useEffect(() => {
         if(!query) return;
@@ -29,7 +38,8 @@ function SearchPage(){
     }, [query]);
 
     return(
-        <div>
+        <div className="searchPageDiv">
+            <h1 className="findFilmTitle">НАЙДИ ФИЛЬМ</h1>
             <input 
             type="text"
             placeholder="ПОИСК ФИЛЬМА..."
@@ -37,7 +47,7 @@ function SearchPage(){
 
             {loading && <p>Загрузка...</p>}
 
-            <div>
+            <div className="moviesDiv">
                 {movies.map((movie: any) => (
                     <MovieCard
                     key={movie.id}
