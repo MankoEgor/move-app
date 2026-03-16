@@ -1,5 +1,5 @@
-import {useState, useEffect} from "react";
-import { searchMovies, getTopRate } from "../api/tmdb";
+import {useState, useEffect, useRef} from "react";
+import { searchMovies, getTopRated } from "../api/tmdb";
 import MovieCard from "../components/MoveCard";
 
 import '../styles/index.css'
@@ -8,9 +8,18 @@ function SearchPage(){
     const [query, setQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
+    const timerRef = useRef<number | null>(null);
+
+    const heandleOnClick = (query: string) => {
+        if(timerRef.current) clearInterval(timerRef.current);
+
+        timerRef.current = setInterval(() => {
+            setQuery(query);
+        }, 500)
+    }
 
     useEffect(() => {
-        getTopRate()
+        getTopRated()
             .then(result => {
                 setMovies(result);
             });
@@ -43,7 +52,7 @@ function SearchPage(){
             <input 
             type="text"
             placeholder="ПОИСК ФИЛЬМА..."
-            onChange={e => setQuery(e.target.value)} />
+            onChange={e => heandleOnClick(e.target.value)} />
 
             {loading && <p>Загрузка...</p>}
 

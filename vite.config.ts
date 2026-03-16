@@ -8,7 +8,6 @@ export default defineConfig({
       '/api': {
         target: 'https://api.themoviedb.org',
         changeOrigin: true,
-        secure: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
