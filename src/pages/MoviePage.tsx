@@ -36,7 +36,7 @@ function MoviePage(){
             <div className={styles.infoDiv}>
                 <div className={styles.infoItem}>
                     <p className={styles.titleInfo}>РЕЙТИНГ</p>
-                    <p className={styles.info}><span>star</span> {movie.vote_average.toFixed(2)}</p>
+                    <p className={styles.info}><span>star</span> {movie.vote_average.toFixed(1)}</p>
                 </div>
                 <div className={styles.infoItem}>
                     <p className={styles.titleInfo}>ГОД </p>
