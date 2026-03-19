@@ -2,7 +2,7 @@ import {useState, useEffect, useRef} from "react";
 import { searchMovies, getTopRated } from "../api/tmdb";
 import MovieCard from "../components/MovieCard";
 
-import '../styles/index.css'
+import s from '../pages/index.module.css'
 
 function SearchPage(){
     const [query, setQuery] = useState("");
@@ -47,8 +47,8 @@ function SearchPage(){
     }, [query]);
 
     return(
-        <div className="searchPageDiv">
-            <h1 className="findFilmTitle">НАЙДИ ФИЛЬМ</h1>
+        <div className={s.searchPageDiv}>
+            <h1 className={s.findFilmTitle}>НАЙДИ ФИЛЬМ</h1>
             <input 
             type="text"
             placeholder="ПОИСК ФИЛЬМА..."
@@ -56,7 +56,7 @@ function SearchPage(){
 
             {loading && <p>Загрузка...</p>}
 
-            <div className="moviesDiv">
+            <div className={s.moviesDiv}>
                 {movies.map((movie: any) => (
                     <MovieCard
                     key={movie.id}
