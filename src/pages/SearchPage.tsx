@@ -11,9 +11,9 @@ function SearchPage(){
     const timerRef = useRef<number | null>(null);
 
     const heandleOnClick = (query: string) => {
-        if(timerRef.current) clearInterval(timerRef.current);
+        if(timerRef.current) clearTimeout(timerRef.current);
 
-        timerRef.current = setInterval(() => {
+        timerRef.current = setTimeout(() => {
             setQuery(query);
         }, 500)
     }
