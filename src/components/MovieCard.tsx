@@ -30,7 +30,7 @@ function MovieCard({id, title, poster_path, vote_average}: movieCardProps){
             
             <div className={s.movieInfo}>
                 <p>{title}</p>
-                <p>{vote_average}</p>
+                <p>{vote_average.toFixed(2)}</p>
             </div>
         </div>
     );
