@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
-import {getMovie, BACKDROP_URL} from "../api/tmdb";
+import {getMovie, BACKDROP_URL} from "../../api/tmdb";
 
 import styles from '../pages/MoviePage.module.css'
 

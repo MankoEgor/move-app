@@ -1,7 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
-import MoviePage from "./pages/MoviePage";
-import FavoritesPage from "./pages/FavoritesPage";
+import MoviePage from "./pages/MoviePage/MoviePage";
+import FavoritesPage from "./pages/FavoritePage/FavoritesPage";
 import NavBar from "./components/NavBar";
 
 function App() {
