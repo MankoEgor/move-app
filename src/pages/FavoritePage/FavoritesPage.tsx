@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import { getMovie } from "../../api/tmdb";
 import MovieCard from "../../components/MovieCard";
 
-import '..FavoritePage.css'
+import s from 'FavoritePage.module.css';
 
 function FavoritesPage() {
     const {favorites} = useFavorite();
@@ -30,9 +30,9 @@ function FavoritesPage() {
     if(movies.length === 0) return <p>Нет избранных фильмов...</p>;
 
     return (
-        <div className="favoritePageDiv">
-            <h1 className="favoriteFilmTitle">ИЗБРАННОЕ</h1>
-            <div className="favoriteDiv">
+        <div className={s.favoritePageDiv}>
+            <h1 className={s.favoriteFilmTitle}>ИЗБРАННОЕ</h1>
+            <div className={s.favoriteDiv}>
                 {movies.map(movie => (
                     <MovieCard 
                         key={movie.id}
