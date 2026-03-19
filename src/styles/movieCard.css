@@ -1,3 +1,10 @@
+.movieCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
 .movieCardImage {
   width: 100%;
   position: relative;
@@ -9,8 +16,47 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.movieCard:hover .movieCardImage img {
+  transform: scale(1.05);
+}
+
+.movieCardImage button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+
+.movieCardImage button:hover {
+  background: rgba(0,0,0,0.9);
 }
 
 .movieInfo {
   padding: 8px 0;
+}
+
+.movieInfo p:first-child {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.movieInfo p:last-child {
+  font-size: 12px;
+  color: var(--muted);
 }
