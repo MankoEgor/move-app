@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {getMovie, BACKDROP_URL} from "../../api/tmdb";
 
-import styles from '../pages/MoviePage.module.css'
+import styles from './MoviePage.module.css'
 
 function MoviePage(){
     const {id} = useParams();

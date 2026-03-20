@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import { getMovie } from "../../api/tmdb";
 import MovieCard from "../../components/MovieCard";
 
-import s from 'FavoritePage.module.css';
+import s from './FavoritePage.module.css';
 
 function FavoritesPage() {
     const {favorites} = useFavorite();
