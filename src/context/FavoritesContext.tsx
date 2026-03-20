@@ -1,4 +1,4 @@
-import {useState, createContext, useContext, useEffect, createRef} from 'react';
+import {useState, createContext, useContext, useEffect} from 'react';
 
 import { getGenres } from '../api/tmdb';
 

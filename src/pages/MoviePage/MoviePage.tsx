@@ -29,6 +29,9 @@ function MoviePage(){
     if (loading) return <p>Загрузка...</p>;
     if (!movie) return <p>Фильм не найден...</p>;
 
+    console.log('genre_ids:', movie.genre_ids)
+    console.log('genres:', genres)
+
     return(
         <div className="moviePageDiv">
             <div className={styles.backdrop}>
