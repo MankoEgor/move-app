@@ -73,12 +73,6 @@
   font-weight: 700;
 }
 
-.overview {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #444;
-  max-width: 800px;
-}
 
 .moviePageDiv{
     margin : 0 80px;
@@ -86,8 +80,8 @@
 
 .infoDiv{
     display: flex;
-    gap: 40px;
-    margin: 40px 60px;
+    gap: 45px;
+    margin: 40px ;
 }
 
 .infoItem{
@@ -111,8 +105,57 @@
     font-weight: 700;
 }
 
+.infoDir{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.infoGenre{
+    display: flex;
+}
+
+.dopInfo{
+  display: flex;
+  margin: 40px;
+}
+
+.addDiv{
+  display: flex;
+  flex-direction:column-reverse;
+  width: 40%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.overview{
+  width: 60%;
+  text-align: justify;
+  color: #e9ecef;
+}
+
 span{
     color: #c8f135;
+}
+
+.isntFav, .isFav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 60%;
+  height: 50px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.isFav{
+  background-color: #666666;
+  color: #c8f135;
+}
+
+.isntFav{
+  background-color: #c8f135;
 }
 
 .movieImage{

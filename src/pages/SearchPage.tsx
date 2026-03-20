@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from "react";
 import { searchMovies, getTopRated } from "../api/tmdb";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/MovieCard/MovieCard";
 
 import s from '../pages/index.module.css'
 

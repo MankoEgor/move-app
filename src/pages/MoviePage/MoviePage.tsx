@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {getMovie, getMovieCredits, BACKDROP_URL} from "../../api/tmdb";
+import { useFavorite } from "../../context/FavoritesContext";
 
 import styles from './MoviePage.module.css'
 
@@ -9,10 +10,8 @@ function MoviePage(){
     const navigate = useNavigate();
     const [movie, setMovie] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-
-    console.log(id);
-
-    // const credits = getMovieCredits(id);
+    const [director, setDirector] = useState<string>('');
+    const {isFavorite, favoriteToggle} = useFavorite();
 
     useEffect(() => {
         getMovie(id!)
@@ -20,6 +19,13 @@ function MoviePage(){
                 setMovie(data);
                 setLoading(false);
             })
+
+        getMovieCredits(id!)
+            .then(credits => {
+                const dir = credits.crew.find((p: any) => p.job === 'Director');
+                setDirector(dir?.name || 'Неизвестен');
+            })
+
     }, [id]);
 
     if (loading) return <p>Загрузка...</p>;
@@ -52,14 +58,19 @@ function MoviePage(){
                 </div>
                 <div className={styles.infoItem}>
                     <p className={styles.titleInfo}>ПРОДЮСЕР</p>
-                    <p className={styles.info}>{movie.director}</p>
+                    <p className={styles.infoDir}>{director}</p>
                 </div>
             </div>
 
-            <div className="dopInfo">
-                <p>{movie.overview}</p>
-                <button></button>
-                <p>{movie.genres?.map((g: any )=> g.name).join(' ,')}</p>
+            <div className={styles.dopInfo}>
+                <p className={styles.overview}>{movie.overview}</p>
+                <div className={styles.addDiv}>
+                    <button className={isFavorite(movie.id) ? styles.isFav : styles.isntFav} onClick={() => favoriteToggle(movie.id)}>
+                        {isFavorite(movie.id) ? <img src="/favorite_24dp_C8F135.svg" alt="" /> : <img src="/favorite_border_24dp_666666.svg" alt="" />}
+                        {isFavorite(movie.id) ? 'УБРАТЬ ИЗ ИЗБРАННОГО' : 'В ИЗБРАННОЕ'}
+                    </button>
+                    <div className={styles.infoGenre}>{movie.genres?.map((g: any )=> g.name).join('/').toUpperCase()}</div>
+                </div>
             </div>
             
         </div>

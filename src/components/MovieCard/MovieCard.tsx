@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
-import {useFavorite} from "../context/FavoritesContext.tsx";
-import {IMAGE_BASE_URL} from "../api/tmdb.ts";
+import {useFavorite} from "../../context/FavoritesContext.tsx";
+import {IMAGE_BASE_URL} from "../../api/tmdb.ts";
 
 import s from '../components/MovieCard.module.css';
 
@@ -21,7 +21,7 @@ function MovieCard({id, title, poster_path, vote_average}: movieCardProps){
                     e.stopPropagation()
                     favoriteToggle(id)
                 }}>
-                {isFavorite(id) ? '♥' : '♡'}
+                {isFavorite(id) ? <img src="/favorite_24dp_C8F135.svg" alt="" /> : <img src="/favorite_border_24dp_C8F135.svg" alt="" />}
             </button>
                 {poster_path 
             ? <img src={`${IMAGE_BASE_URL}${poster_path}`} alt={title} /> 

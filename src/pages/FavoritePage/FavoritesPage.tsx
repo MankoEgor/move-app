@@ -1,7 +1,7 @@
 import { useFavorite } from "../../context/FavoritesContext";
 import {useEffect, useState} from "react";
 import { getMovie } from "../../api/tmdb";
-import MovieCard from "../../components/MovieCard";
+import MovieCard from "../../components/MovieCard/MovieCard";
 
 import s from './FavoritePage.module.css';
 
