@@ -3,7 +3,6 @@ import {useParams, useNavigate} from "react-router-dom";
 import {getMovie, getMovieCredits, BACKDROP_URL} from "../../api/tmdb";
 
 import styles from './MoviePage.module.css'
-import { useGenres } from "../../context/FavoritesContext";
 
 function MoviePage(){
     const {id} = useParams();
@@ -13,10 +12,7 @@ function MoviePage(){
 
     console.log(id);
 
-    const { genres } = useGenres()
-    const movieGenre = genres.filter(g => movie.genre_ids.includes(g.id))
-
-    // const credit = getMovieCredits();
+    // const credits = getMovieCredits(id);
 
     useEffect(() => {
         getMovie(id!)
@@ -29,9 +25,6 @@ function MoviePage(){
     if (loading) return <p>Загрузка...</p>;
     if (!movie) return <p>Фильм не найден...</p>;
 
-    console.log('genre_ids:', movie.genre_ids)
-    console.log('genres:', genres)
-
     return(
         <div className="moviePageDiv">
             <div className={styles.backdrop}>
@@ -39,7 +32,7 @@ function MoviePage(){
                 {movie.backdrop_path && 
                 <img  src={`${BACKDROP_URL}${movie.backdrop_path}`} alt={movie.title} />}
                 <div className={styles.backdropOverlay}>
-                    <h1>{movie.title}</h1>
+                    <h1 className={styles.title}>{movie.title}</h1>
                 </div>
             </div>
             
@@ -66,7 +59,7 @@ function MoviePage(){
             <div className="dopInfo">
                 <p>{movie.overview}</p>
                 <button></button>
-                <p>{movieGenre.map(g => g.name).join(' ,')}</p>
+                <p>{movie.genres?.map((g: any )=> g.name).join(' ,')}</p>
             </div>
             
         </div>
