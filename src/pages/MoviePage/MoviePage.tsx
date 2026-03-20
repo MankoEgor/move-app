@@ -11,8 +11,12 @@ function MoviePage(){
     const [movie, setMovie] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 
+    console.log(id);
+
     const { genres } = useGenres()
     const movieGenre = genres.filter(g => movie.genre_ids.includes(g.id))
+
+    // const credit = getMovieCredits();
 
     useEffect(() => {
         getMovie(id!)
