@@ -1,14 +1,18 @@
 import {useState, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
-import {getMovie, BACKDROP_URL} from "../../api/tmdb";
+import {getMovie, getMovieCredits, BACKDROP_URL} from "../../api/tmdb";
 
 import styles from './MoviePage.module.css'
+import { useGenres } from "../../context/FavoritesContext";
 
 function MoviePage(){
     const {id} = useParams();
     const navigate = useNavigate();
     const [movie, setMovie] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+
+    const { genres } = useGenres()
+    const movieGenre = genres.filter(g => movie.genre_ids.includes(g.id))
 
     useEffect(() => {
         getMovie(id!)
@@ -55,6 +59,7 @@ function MoviePage(){
             <div className="dopInfo">
                 <p>{movie.overview}</p>
                 <button></button>
+                <p>{movieGenre.map(g => g.name).join(' ,')}</p>
             </div>
             
         </div>

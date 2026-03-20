@@ -30,3 +30,9 @@ export const getTopRated = async () => {
   const data = await res.json();
   return data.results;
 }
+
+export const getGenres = async () => {   
+    const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=ru`);
+    const data = await res.json();
+    return data.genres
+}
