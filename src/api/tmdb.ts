@@ -3,12 +3,12 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export const BACKDROP_URL = 'https://image.tmdb.org/t/p/original';
 
-export const searchMovies = async(query: string) => {
+export const searchMovies = async(query: string, page: number = 1) => {
     const res = await fetch(
-        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=ru`
+        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=ru&page=${page}`
     );
     const data = await res.json();
-    return data.results;
+    return { results: data.results, totalPages: data.total_pages}
 }
 
 export const getMovie = async(id: string) => {
@@ -28,7 +28,7 @@ export const getMovieCredits = async(id: string) => {
 export const getTopRated = async (page: number = 1) => {
   const res = await fetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=ru&page=${page}`);
   const data = await res.json();
-  return data.results;
+  return { results: data.results, totalPages: data.total_pages };
 }
 
 export const getGenres = async () => {   

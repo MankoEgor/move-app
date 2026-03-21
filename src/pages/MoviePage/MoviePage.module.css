@@ -50,6 +50,10 @@
   z-index: 10;
 }
 
+.backBtn:hover{
+  background-color: #c8f135;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

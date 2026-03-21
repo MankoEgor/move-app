@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef} from "react";
 import { searchMovies, getTopRated } from "../api/tmdb";
 import MovieCard from "../components/MovieCard/MovieCard";
-import GenreDiv from "../components/GenreDiv/GenreDiv";
+import GenreButton from "../components/GenreButton/GenreButton";
 import { useGenres } from "../context/FavoritesContext";
 
 import s from '../pages/index.module.css'
@@ -11,23 +11,26 @@ function SearchPage(){
     const [page, setPage] = useState<number>(1)
     const [movies, setMovies] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [totalPages, setTotalPages] = useState<number>(1);
     const timerRef = useRef<number | null>(null);
 
     const heandleOnClick = (query: string) => {
         if(timerRef.current) clearTimeout(timerRef.current);
 
         timerRef.current = setTimeout(() => {
+            setPage(1);
             setQuery(query);
         }, 500)
     }
 
     useEffect(() => {
-        getTopRated(page).then(result => {
-            if (Array.isArray(result)) {
-                setMovies(prev => page === 1 ? result : [...prev, ...result])}
-  })
-            
-    }, [page]);
+        if(query) return;
+        getTopRated(page).then(({ results, totalPages }) => {
+            if (Array.isArray(results)) {
+                setMovies(prev => page === 1 ? results : [...prev, ...results])
+                setTotalPages(totalPages);
+            }
+    })}, [page, query])
 
     useEffect(() => {
         if(!query) return;
@@ -36,11 +39,17 @@ function SearchPage(){
 
         setLoading(true);
 
-        searchMovies(query)
-            .then(result => {
+        searchMovies(query, page)
+            .then(({results, totalPages}) => {
                 if(!cancelled){
-                    setMovies(result);
-                    setLoading(false);
+                    setMovies(prev => page === 1 ? 
+                        (Array.isArray(results) ? results : []) 
+                        : [...prev, ...(Array.isArray(results) ? results : [])])
+
+                    console.log(results);
+                    console.log(totalPages);
+                    setTotalPages(totalPages || 1)
+                    setLoading(false)
                 }
             }
         );
@@ -48,10 +57,10 @@ function SearchPage(){
         return () => {
             cancelled = true;
         }
-    }, [query]);
+    }, [query, page]);
 
     const {genres} = useGenres();
-    
+
 
     return(
         <div className={s.searchPageDiv}>
@@ -62,6 +71,15 @@ function SearchPage(){
             onChange={e => heandleOnClick(e.target.value)} />
 
             {loading && <p>Загрузка...</p>}
+
+            <div className={s.filterButtons}>
+                {
+                    genres.map(g => (
+                        <GenreButton
+                        name={g.name}/>
+                    ))
+                }
+            </div>
 
             <div className={s.moviesDiv}>
                 {movies.map((movie: any) => (
@@ -74,11 +92,13 @@ function SearchPage(){
                 ))}
             </div>
 
-             <div className={s.buttonDiv}>
-                <button className={s.moreButton} onClick={() => setPage(p => p + 1)}>
+            {page < totalPages && (
+                <div className={s.buttonDiv}>
+                    <button className={s.moreButton} onClick={() => setPage(prev => prev + 1)}>
                     Загрузить ещё
-                </button>
-            </div>
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
