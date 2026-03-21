@@ -66,7 +66,7 @@ function MoviePage(){
                 <p className={styles.overview}>{movie.overview}</p>
                 <div className={styles.addDiv}>
                     <button className={isFavorite(movie.id) ? styles.isFav : styles.isntFav} onClick={() => favoriteToggle(movie.id)}>
-                        {isFavorite(movie.id) ? <img src="/favorite_24dp_C8F135.svg" alt="" /> : <img src="/favorite_border_24dp_666666.svg" alt="" />}
+                        {isFavorite(movie.id) ? <img src="/favorite_24dp_C8F135.svg" alt="" /> : <img src="/favorite_24dp_000000.svg" alt="" />}
                         {isFavorite(movie.id) ? 'УБРАТЬ ИЗ ИЗБРАННОГО' : 'В ИЗБРАННОЕ'}
                     </button>
                     <div className={styles.infoGenre}>{movie.genres?.map((g: any )=> g.name).join('/').toUpperCase()}</div>

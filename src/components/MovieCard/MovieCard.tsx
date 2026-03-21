@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {useFavorite} from "../../context/FavoritesContext.tsx";
 import {IMAGE_BASE_URL} from "../../api/tmdb.ts";
 
-import s from '../components/MovieCard.module.css';
+import s from '../MovieCard/MovieCard.module.css';
 
 interface movieCardProps{
     id: number;

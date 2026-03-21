@@ -124,13 +124,14 @@
   flex-direction:column-reverse;
   width: 40%;
   align-items: center;
-  justify-content: space-evenly;
+  gap: 20px;
+  justify-content: center;
 }
 
 .overview{
   width: 60%;
   text-align: justify;
-  color: #e9ecef;
+  color: gray;
 }
 
 span{
@@ -146,16 +147,17 @@ span{
   height: 50px;
   font-weight: 600;
   border-radius: 10px;
-  border: 1px solid #e9ecef;
 }
 
 .isFav{
-  background-color: #666666;
+  background-color: #ffffff;
   color: #c8f135;
+  border: 1px solid #c8f135;
 }
 
 .isntFav{
   background-color: #c8f135;
+  border: 1px solid #e9ecef;
 }
 
 .movieImage{
