@@ -1,6 +1,8 @@
 import {useState, useEffect, useRef} from "react";
 import { searchMovies, getTopRated } from "../api/tmdb";
 import MovieCard from "../components/MovieCard/MovieCard";
+import GenreDiv from "../components/GenreDiv/GenreDiv";
+import { useGenres } from "../context/FavoritesContext";
 
 import s from '../pages/index.module.css'
 
@@ -47,6 +49,9 @@ function SearchPage(){
             cancelled = true;
         }
     }, [query]);
+
+    const {genres} = useGenres();
+    
 
     return(
         <div className={s.searchPageDiv}>
