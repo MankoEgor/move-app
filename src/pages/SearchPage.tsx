@@ -5,9 +5,10 @@ import MovieCard from "../components/MovieCard/MovieCard";
 import s from '../pages/index.module.css'
 
 function SearchPage(){
-    const [query, setQuery] = useState("");
-    const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [query, setQuery] = useState<string>("");
+    const [page, setPage] = useState<number>(1)
+    const [movies, setMovies] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const timerRef = useRef<number | null>(null);
 
     const heandleOnClick = (query: string) => {
@@ -19,11 +20,12 @@ function SearchPage(){
     }
 
     useEffect(() => {
-        getTopRated()
-            .then(result => {
-                setMovies(result);
-            });
-    }, []);
+        getTopRated(page).then(result => {
+            if (Array.isArray(result)) {
+                setMovies(prev => page === 1 ? result : [...prev, ...result])}
+  })
+            
+    }, [page]);
 
     useEffect(() => {
         if(!query) return;
@@ -65,6 +67,12 @@ function SearchPage(){
                     poster_path={movie.poster_path}
                     vote_average={movie.vote_average} />
                 ))}
+            </div>
+
+             <div className={s.buttonDiv}>
+                <button className={s.moreButton} onClick={() => setPage(p => p + 1)}>
+                    Загрузить ещё
+                </button>
             </div>
         </div>
     );

@@ -25,8 +25,8 @@ export const getMovieCredits = async(id: string) => {
     return res.json();
 }
 
-export const getTopRated = async () => {
-  const res = await fetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=ru`);
+export const getTopRated = async (page: number = 1) => {
+  const res = await fetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=ru&page=${page}`);
   const data = await res.json();
   return data.results;
 }

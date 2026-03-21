@@ -64,6 +64,23 @@ button {
   padding: 24px 48px;
 }
 
+.moreButton{
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  background: var(--accent);
+  border-radius: 10px;
+  border: 3px solid var(--border) outset;
+}
+.buttonDiv{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+
+
 
 
 
