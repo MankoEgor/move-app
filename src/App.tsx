@@ -1,5 +1,5 @@
 import {Route, Routes} from "react-router-dom";
-import SearchPage from "./pages/SearchPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import MoviePage from "./pages/MoviePage/MoviePage";
 import FavoritesPage from "./pages/FavoritePage/FavoritesPage";
 import NavBar from "./components/NavBar/NavBar";

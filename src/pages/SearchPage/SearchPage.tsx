@@ -1,10 +1,10 @@
 import {useState, useEffect, useRef} from "react";
-import { searchMovies, getTopRated, getMoviesByGenre } from "../api/tmdb";
-import MovieCard from "../components/MovieCard/MovieCard";
-import GenreButton from "../components/GenreButton/GenreButton";
-import { useGenres } from "../context/FavoritesContext";
+import { searchMovies, getTopRated, getMoviesByGenre } from "../../api/tmdb";
+import MovieCard from "../../components/MovieCard/MovieCard";
+import GenreButton from "../../components/GenreButton/GenreButton";
+import { useGenres } from "../../context/FavoritesContext";
 
-import s from '../pages/index.module.css'
+import s from ''
 
 function SearchPage(){
     const [query, setQuery] = useState<string>("");
@@ -104,7 +104,8 @@ function SearchPage(){
                         <GenreButton
                         key={g.id}
                         name={g.name}
-                        onClick={() => heandleOnClickFilter(g.id)}/>
+                        onClick={() => heandleOnClickFilter(g.id)}
+                        isActive={selectedGenre == g.id}/>
                     ))
                 }
             </div>

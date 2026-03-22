@@ -1,4 +1,4 @@
-.genreButton{
+.genreButton, .active{
     width: auto;
     height: auto;
     padding: 8px 16px;
@@ -13,4 +13,8 @@
     font-size: 12px;
     font-weight: bold;
     text-align: center;
+}
+
+.active{
+    background: #c8f135;
 }
