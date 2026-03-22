@@ -4,7 +4,7 @@ import MovieCard from "../../components/MovieCard/MovieCard";
 import GenreButton from "../../components/GenreButton/GenreButton";
 import { useGenres } from "../../context/FavoritesContext";
 
-import s from ''
+import s from './SearchPage.module.css'
 
 function SearchPage(){
     const [query, setQuery] = useState<string>("");
