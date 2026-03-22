@@ -56,10 +56,20 @@
 .movieInfo p:first-child {
   font-weight: 600;
   font-size: 14px;
-  margin-bottom: 4px;
 }
 
 .movieInfo p:last-child {
   font-size: 12px;
   color: var(--muted);
+}
+
+.average{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.star{
+  width: 15px;
+  height: 15px;
 }

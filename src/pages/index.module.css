@@ -79,6 +79,30 @@ button {
   margin-bottom: 40px;
 }
 
+.filterButtons{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  padding: 24px 48px;
+}
+
+.genreButton{
+    width: auto;
+    height: auto;
+    padding: 8px 16px;
+    text-align: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #ffffff;
+    border: 2px solid black;
+}
+
+.pGenreButton{
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
 
 
 

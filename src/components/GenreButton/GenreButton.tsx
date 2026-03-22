@@ -1,8 +1,13 @@
 import s from './GenreButton.module.css'
 
-function GenerButton({name}: {name: string}){
+interface GenerButton {
+    name: string
+    onClick: () => void; 
+}
+
+function GenerButton({name, onClick}: GenerButton){
     return(
-        <button className={s.genreButton}>
+        <button onClick={onClick} className={s.genreButton}>
             <p className={s.pGenreButton}>{name.toUpperCase()}</p>
         </button>
     )

@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef} from "react";
-import { searchMovies, getTopRated } from "../api/tmdb";
+import { searchMovies, getTopRated, getMoviesByGenre } from "../api/tmdb";
 import MovieCard from "../components/MovieCard/MovieCard";
 import GenreButton from "../components/GenreButton/GenreButton";
 import { useGenres } from "../context/FavoritesContext";
@@ -12,7 +12,16 @@ function SearchPage(){
     const [movies, setMovies] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [totalPages, setTotalPages] = useState<number>(1);
+    const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
     const timerRef = useRef<number | null>(null);
+
+    const {genres} = useGenres();
+
+     const heandleOnClickFilter = (genreId: number | null) => {
+        setSelectedGenre(genreId);
+        setPage(1);
+        if(!genreId) setMovies([]);
+    }
 
     const heandleOnClick = (query: string) => {
         if(timerRef.current) clearTimeout(timerRef.current);
@@ -48,8 +57,8 @@ function SearchPage(){
 
                     console.log(results);
                     console.log(totalPages);
-                    setTotalPages(totalPages || 1)
-                    setLoading(false)
+                    setTotalPages(totalPages || 1);
+                    setLoading(false);
                 }
             }
         );
@@ -59,7 +68,21 @@ function SearchPage(){
         }
     }, [query, page]);
 
-    const {genres} = useGenres();
+    useEffect(() => {
+        if(!selectedGenre) return;
+        
+        getMoviesByGenre(selectedGenre, page)
+            .then(({results, totalPages}) => {
+                if(Array.isArray(results)){
+                    setMovies(prev => page === 1 ? results : [...prev, ...results]);
+                    setTotalPages(totalPages);
+                }
+            })
+    }, [selectedGenre, page]);
+
+    const filteredMovies = selectedGenre 
+        ? movies.filter((m: any) => m.genre_ids?.includes(selectedGenre))
+        : movies;
 
 
     return(
@@ -73,16 +96,21 @@ function SearchPage(){
             {loading && <p>Загрузка...</p>}
 
             <div className={s.filterButtons}>
+                <button className={s.genreButton} onClick={() => heandleOnClickFilter(null)}>
+                    <p className={s.pGenreButton}>ВСЕ</p>
+                </button>
                 {
                     genres.map(g => (
                         <GenreButton
-                        name={g.name}/>
+                        key={g.id}
+                        name={g.name}
+                        onClick={() => heandleOnClickFilter(g.id)}/>
                     ))
                 }
             </div>
 
             <div className={s.moviesDiv}>
-                {movies.map((movie: any) => (
+                {filteredMovies.map((movie: any) => (
                     <MovieCard
                     key={movie.id}
                     id={movie.id}
