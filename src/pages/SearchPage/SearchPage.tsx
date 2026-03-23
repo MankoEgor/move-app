@@ -87,6 +87,9 @@ function SearchPage(){
 
     return(
         <div className={s.searchPageDiv}>
+            <div className={s.warning}>
+                ⚠️ Для работы сайта необходим VPN — TMDB API заблокирован в РБ/РФ
+            </div>
             <h1 className={s.findFilmTitle}>НАЙДИ ФИЛЬМ</h1>
             <input 
             type="text"

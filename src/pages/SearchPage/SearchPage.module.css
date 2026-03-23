@@ -103,6 +103,14 @@ button {
     text-align: center;
 }
 
+.warning{
+  background: #e8ff47;
+  color: #000;
+  padding: 10px 24px;
+  text-align: center;
+  font-size: 13px;
+}
+
 
 
 
