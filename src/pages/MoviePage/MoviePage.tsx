@@ -1,33 +1,20 @@
-import {useState, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {getMovie, getMovieCredits, BACKDROP_URL} from "../../api/tmdb";
 import { useFavorite } from "../../context/FavoritesContext";
 import GenreDiv from "../../components/GenreDiv/GenreDiv";
+import { useFetch } from "../../hooks/useFetch";
 
 import styles from './MoviePage.module.css'
 
 function MoviePage(){
     const {id} = useParams();
     const navigate = useNavigate();
-    const [movie, setMovie] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-    const [director, setDirector] = useState<string>('');
     const {isFavorite, favoriteToggle} = useFavorite();
 
-    useEffect(() => {
-        getMovie(id!)
-            .then(data => {
-                setMovie(data);
-                setLoading(false);
-            })
+    const {data: movie, loading} = useFetch(() => getMovie(id!));
+    const {data: credits} = useFetch(() => getMovieCredits(id!));
 
-        getMovieCredits(id!)
-            .then(credits => {
-                const dir = credits.crew.find((p: any) => p.job === 'Director');
-                setDirector(dir?.name || 'Неизвестен');
-            })
-
-    }, [id]);
+    const director = credits?.crew?.find((p: any) => p.job === 'Director')?.name || 'Неизвестен';
 
     if (loading) return <p>Загрузка...</p>;
     if (!movie) return <p>Фильм не найден...</p>;
