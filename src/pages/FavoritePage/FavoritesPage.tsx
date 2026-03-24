@@ -2,6 +2,7 @@ import { useFavorite } from "../../context/FavoritesContext";
 import {useEffect, useState} from "react";
 import { getMovie } from "../../api/tmdb";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import EmptyFavPage from "../../components/EmptyFavPage/EmptyFavPage";
 
 import s from './FavoritePage.module.css';
 
@@ -26,23 +27,22 @@ function FavoritesPage() {
     }, [favorites]);
 
     if(loading) return <p>Загрузка...</p>;
-
-    if(movies.length === 0) return <p>Нет избранных фильмов...</p>;
+    if(movies.length === 0 ) return <EmptyFavPage/>
 
     return (
         <div className={s.favoritePageDiv}>
             <h1 className={s.favoriteFilmTitle}>ИЗБРАННОЕ</h1>
             <div className={s.favoriteDiv}>
                 {movies.map(movie => (
-                    <MovieCard 
-                        key={movie.id}
-                        id={movie.id}
-                        title={movie.title}
-                        poster_path={movie.poster_path}
-                        vote_average={movie.vote_average}
-                    />
+                <MovieCard 
+                    key={movie.id}
+                    id={movie.id}
+                    title={movie.title}
+                    poster_path={movie.poster_path}
+                    vote_average={movie.vote_average}
+                />
                 ))} 
-            </div>
+            </div> 
         </div>
     );
 };
