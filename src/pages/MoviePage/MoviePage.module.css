@@ -91,31 +91,6 @@
     margin: 40px ;
 }
 
-.infoItem{
-    width: 22%;
-    height: 100px;
-    display: grid;
-    gap: 5px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    border: 1px solid #e9ecef;
-    padding: 25px 30px;
-}
-
-.titleInfo{
-    font-size: 9px;
-    color: #888888;
-}
-
-.info{
-    font-size: 30px;
-    font-weight: 700;
-}
-
-.infoDir{
-    font-size: 20px;
-    font-weight: 700;
-}
 
 .infoGenre{
     display: flex;
@@ -147,10 +122,6 @@
   color: gray;
 }
 
-span{
-    color: #c8f135;
-}
-
 .isntFav, .isFav{
   display: flex;
   align-items: center;
@@ -174,8 +145,8 @@ span{
 }
 
 .movieImage{
-    width: 100%;
-    border-radius: 15px;
-    margin: 40px 0;
-    border-radius: 20px;
+  width: 100%;
+  border-radius: 15px;
+  margin: 40px 0;
+  border-radius: 20px;
 }

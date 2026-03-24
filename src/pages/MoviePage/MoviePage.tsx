@@ -2,6 +2,7 @@ import {useParams, useNavigate} from "react-router-dom";
 import {getMovie, getMovieCredits, BACKDROP_URL} from "../../api/tmdb";
 import { useFavorite } from "../../context/FavoritesContext";
 import GenreDiv from "../../components/GenreDiv/GenreDiv";
+import InfoItem from "../../components/InfoItem/InfoItem";
 import { useFetch } from "../../hooks/useFetch";
 
 import styles from './MoviePage.module.css'
@@ -32,22 +33,10 @@ function MoviePage(){
             
 
             <div className={styles.infoDiv}>
-                <div className={styles.infoItem}>
-                    <p className={styles.titleInfo}>РЕЙТИНГ</p>
-                    <p className={styles.info}><span>star</span> {movie.vote_average.toFixed(1)}</p>
-                </div>
-                <div className={styles.infoItem}>
-                    <p className={styles.titleInfo}>ГОД </p>
-                    <p className={styles.info}>{movie.release_date?.slice(0, 4)}</p>
-                </div>
-                <div className={styles.infoItem}>
-                    <p className={styles.titleInfo}>ДЛИТЕЛЬНОСТЬ</p>
-                    <p className={styles.info}>{movie.runtime} мин</p>
-                </div>
-                <div className={styles.infoItem}>
-                    <p className={styles.titleInfo}>ПРОДЮСЕР</p>
-                    <p className={styles.infoDir}>{director}</p>
-                </div>
+                <InfoItem label={'РЕЙТИНГ'} value={movie.vote_average.toFixed(1)} prefix={'star'}/>
+                <InfoItem label={'ГОД'} value={movie.release_date?.slice(0, 4)}/>
+                <InfoItem label={'ДЛИТЕЛЬНОСТЬ'} value={`${movie.runtime} мин`}/>
+                <InfoItem label={'ПРОДЮСЕР'} value={director}/>
             </div>
 
             <div className={styles.dopInfo}>

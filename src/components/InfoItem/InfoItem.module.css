@@ -1,0 +1,30 @@
+.infoItem{
+    width: 22%;
+    height: 100px;
+    display: grid;
+    gap: 5px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 1px solid #e9ecef;
+    padding: 25px 30px;
+}
+
+.titleInfo{
+    font-size: 9px;
+    color: #888888;
+}
+
+.info{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.infoDir{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+span{
+    color: #c8f135;
+    margin-right: 5px;
+}
