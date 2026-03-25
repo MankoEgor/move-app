@@ -1,6 +1,5 @@
 import {useState, createContext, useContext, useEffect} from 'react';
 
-import { getGenres } from '../api/tmdb';
 
 
 interface FavoritesContextType {
