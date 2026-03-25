@@ -48,6 +48,7 @@
   font-size: 13px;
   backdrop-filter: blur(4px);
   z-index: 10;
+  border-radius: 5px;
 }
 
 .backBtn:hover{

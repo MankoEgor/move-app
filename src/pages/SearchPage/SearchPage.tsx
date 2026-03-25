@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect, useRef, useCallback, useMemo} from "react";
 import { searchMovies, getTopRated, getMoviesByGenre } from "../../api/tmdb";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import GenreButton from "../../components/GenreButton/GenreButton";
@@ -17,11 +17,11 @@ function SearchPage(){
 
     const {genres} = useGenres();
 
-     const heandleOnClickFilter = (genreId: number | null) => {
+     const heandleOnClickFilter = useCallback((genreId: number | null) => {
         setSelectedGenre(genreId);
         setPage(1);
         if(!genreId) setMovies([]);
-    }
+    }, []);
 
     const heandleOnClick = (query: string) => {
         if(timerRef.current) clearTimeout(timerRef.current);
@@ -80,9 +80,10 @@ function SearchPage(){
             })
     }, [selectedGenre, page]);
 
-    const filteredMovies = selectedGenre 
+    const filteredMovies = useMemo(() =>  
+            selectedGenre 
         ? movies.filter((m: any) => m.genre_ids?.includes(selectedGenre))
-        : movies;
+        : movies, [movies, selectedGenre])
 
 
     return(
