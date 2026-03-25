@@ -38,33 +38,3 @@ export function FavoritesProvider({children}: {children: React.ReactNode}) {
 export function useFavorite(){
     return useContext(FavoritesContext)!;
 };
-
-
-interface Genre {
-    id: number,
-    name: string
-}
-
-interface GenreContextType{
-    genres: Genre[]
-}
-
-const GenresContext = createContext<GenreContextType | null>(null);
-
-export function GenresProvoder({children}: {children: React.ReactNode}){
-    const [genres, setGenres] = useState<Genre[]>([]);
-
-    useEffect(() => {
-        getGenres().then(data => setGenres(data));
-    }, []);
-
-    return (
-        <GenresContext.Provider value={{ genres }}>
-            {children}
-        </GenresContext.Provider>
-    )
-}
-
-export function useGenres(){
-    return useContext(GenresContext)!;
-}

@@ -2,7 +2,7 @@ import {useState, useEffect, useRef, useCallback, useMemo} from "react";
 import { searchMovies, getTopRated, getMoviesByGenre } from "../../api/tmdb";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import GenreButton from "../../components/GenreButton/GenreButton";
-import { useGenres } from "../../context/FavoritesContext";
+import { useGenres } from "../../context/GenreContext";
 
 import s from './SearchPage.module.css'
 
