@@ -1,6 +1,8 @@
 import { useFavorite } from "../../context/FavoritesContext";
+import { useLanguage } from "../../context/LanguageContext";
 import {useEffect, useState} from "react";
 import { getMovie } from "../../api/tmdb";
+import { translations } from "../../locales/translate";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import EmptyFavPage from "../../components/EmptyFavPage/EmptyFavPage";
 
@@ -8,8 +10,12 @@ import s from './FavoritePage.module.css';
 
 function FavoritesPage() {
     const {favorites} = useFavorite();
+    const {language} = useLanguage()
     const [movies, setMovies] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
+
+    const t = translations[language];
+    
 
     useEffect(() => {
         if(favorites.length === 0){
@@ -19,19 +25,19 @@ function FavoritesPage() {
 
         setLoading(true);
 
-        Promise.all(favorites.map(id => getMovie(String(id))))
+        Promise.all(favorites.map(id => getMovie(String(id), language)))
             .then(result => {
                 setMovies(result);
                 setLoading(false);
             })
-    }, [favorites]);
+    }, [favorites, language]);
 
-    if(loading) return <p>Загрузка...</p>;
+    if(loading) return <p>{t.search.loading}</p>;
     if(movies.length === 0 ) return <EmptyFavPage/>
 
     return (
         <div className={s.favoritePageDiv}>
-            <h1 className={s.favoriteFilmTitle}>ИЗБРАННОЕ</h1>
+            <h1 className={s.favoriteFilmTitle}>{t.nav.favTitle}</h1>
             <div className={s.favoriteDiv}>
                 {movies.map(movie => (
                 <MovieCard 

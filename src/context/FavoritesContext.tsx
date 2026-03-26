@@ -1,7 +1,5 @@
 import {useState, createContext, useContext, useEffect} from 'react';
 
-
-
 interface FavoritesContextType {
     favorites: number[];
     favoriteToggle: (id: number) => void;

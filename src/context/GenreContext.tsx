@@ -1,5 +1,6 @@
 import { useState, useContext, createContext, useEffect } from 'react';
 import { getGenres } from '../api/tmdb';
+import { useLanguage } from './LanguageContext';
 
 interface Genre {
     id: number,
@@ -14,10 +15,11 @@ const GenresContext = createContext<GenreContextType | null>(null);
 
 export function GenresProvoder({children}: {children: React.ReactNode}){
     const [genres, setGenres] = useState<Genre[]>([]);
+    const { language } = useLanguage()
 
     useEffect(() => {
-        getGenres().then(data => setGenres(data));
-    }, []);
+        getGenres(language).then(data => setGenres(data));
+    }, [language]);
 
     return (
         <GenresContext.Provider value={{ genres }}>

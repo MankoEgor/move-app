@@ -3,8 +3,10 @@ import { searchMovies, getTopRated, getMoviesByGenre } from "../../api/tmdb";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import GenreButton from "../../components/GenreButton/GenreButton";
 import { useGenres } from "../../context/GenreContext";
+import { translations } from "../../locales/translate";
 
 import s from './SearchPage.module.css'
+import { useLanguage } from "../../context/LanguageContext";
 
 function SearchPage(){
     const [query, setQuery] = useState<string>("");
@@ -13,14 +15,19 @@ function SearchPage(){
     const [loading, setLoading] = useState<boolean>(false);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
+    const {language} = useLanguage();
     const timerRef = useRef<number | null>(null);
+
+    const t = translations[language].search
 
     const {genres} = useGenres();
 
      const heandleOnClickFilter = useCallback((genreId: number | null) => {
         setSelectedGenre(genreId);
         setPage(1);
-        if(!genreId) setMovies([]);
+        if(!genreId)
+            setMovies([])
+
     }, []);
 
     const heandleOnClick = (query: string) => {
@@ -34,12 +41,12 @@ function SearchPage(){
 
     useEffect(() => {
         if(query) return;
-        getTopRated(page).then(({ results, totalPages }) => {
+        getTopRated(page, language).then(({ results, totalPages }) => {
             if (Array.isArray(results)) {
                 setMovies(prev => page === 1 ? results : [...prev, ...results])
                 setTotalPages(totalPages);
             }
-    })}, [page, query])
+    })}, [page, query, language])
 
     useEffect(() => {
         if(!query) return;
@@ -48,7 +55,7 @@ function SearchPage(){
 
         setLoading(true);
 
-        searchMovies(query, page)
+        searchMovies(query, page, language)
             .then(({results, totalPages}) => {
                 if(!cancelled){
                     setMovies(prev => page === 1 ? 
@@ -66,19 +73,19 @@ function SearchPage(){
         return () => {
             cancelled = true;
         }
-    }, [query, page]);
+    }, [query, page, language]);
 
     useEffect(() => {
         if(!selectedGenre) return;
         
-        getMoviesByGenre(selectedGenre, page)
+        getMoviesByGenre(selectedGenre, page, language)
             .then(({results, totalPages}) => {
                 if(Array.isArray(results)){
                     setMovies(prev => page === 1 ? results : [...prev, ...results]);
                     setTotalPages(totalPages);
                 }
             })
-    }, [selectedGenre, page]);
+    }, [selectedGenre, page, language]);
 
     const filteredMovies = useMemo(() =>  
             selectedGenre 
@@ -91,17 +98,17 @@ function SearchPage(){
             <div className={s.warning}>
                 ⚠️ Для работы сайта необходим VPN — TMDB API заблокирован в РБ/РФ
             </div>
-            <h1 className={s.findFilmTitle}>НАЙДИ ФИЛЬМ</h1>
+            <h1 className={s.findFilmTitle}>{t.title}</h1>
             <input 
             type="text"
-            placeholder="ПОИСК ФИЛЬМА..."
+            placeholder={t.placeholder}
             onChange={e => heandleOnClick(e.target.value)} />
 
-            {loading && <p>Загрузка...</p>}
+            {loading && <p>{t.loading}</p>}
 
             <div className={s.filterButtons}>
                 <button className={s.genreButton} onClick={() => heandleOnClickFilter(null)}>
-                    <p className={s.pGenreButton}>ВСЕ</p>
+                    <p className={s.pGenreButton}>{t.all}</p>
                 </button>
                 {
                     genres.map(g => (
@@ -128,7 +135,7 @@ function SearchPage(){
             {page < totalPages && (
                 <div className={s.buttonDiv}>
                     <button className={s.moreButton} onClick={() => setPage(prev => prev + 1)}>
-                    Загрузить ещё
+                    {t.loadMore}
                     </button>
                 </div>
             )}
