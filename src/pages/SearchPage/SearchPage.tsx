@@ -12,6 +12,7 @@ function SearchPage(){
     const [query, setQuery] = useState<string>("");
     const [page, setPage] = useState<number>(1)
     const [movies, setMovies] = useState<any[]>([]);
+    const [allMovies, setAllMovies] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
@@ -26,8 +27,8 @@ function SearchPage(){
         setSelectedGenre(genreId);
         setPage(1);
         if(!genreId)
-            setMovies([])
-
+            setMovies(allMovies);
+            return;
     }, []);
 
     const heandleOnClick = (query: string) => {
@@ -43,7 +44,8 @@ function SearchPage(){
         if(query) return;
         getTopRated(page, language).then(({ results, totalPages }) => {
             if (Array.isArray(results)) {
-                setMovies(prev => page === 1 ? results : [...prev, ...results])
+                setMovies(prev => page === 1 ? results : [...prev, ...results]);
+                setAllMovies(prev => page === 1 ? results : [...prev, ...results]);
                 setTotalPages(totalPages);
             }
     })}, [page, query, language])
