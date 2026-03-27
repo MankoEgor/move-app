@@ -5,42 +5,23 @@ import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translate";
 import GenreDiv from "../../components/GenreDiv/GenreDiv";
 import InfoItem from "../../components/InfoItem/InfoItem";
-// import { useFetch } from "../../hooks/useFetch";
-
-import { useState, useEffect } from "react";
+import { useFetch } from "../../hooks/useFetch";
 
 import styles from './MoviePage.module.css'
 
 function MoviePage(){
     const {id} = useParams();
     const {language} = useLanguage()
-    const [movie, setMovie] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-    const [director, setDirector] = useState<string>('');
     const navigate = useNavigate();
     const {isFavorite, favoriteToggle} = useFavorite();
 
     const t = translations[language].moviePage;
 
-    useEffect(() => {
-        getMovie(id!, language)
-            .then(data => {
-                setMovie(data);
-                setLoading(false);
-            })
 
-        getMovieCredits(id!, language)
-            .then(credits => {
-                const dir = credits.crew.find((p: any) => p.job === 'Director');
-                setDirector(dir?.name || 'Неизвестен');
-            })
+    const {data: movie, loading} = useFetch(() => getMovie(id!, language), language);
+    const {data: credits} = useFetch(() => getMovieCredits(id!, language), language);
 
-    }, [id, language]);
-
-    // const {data: movie, loading} = useFetch(() => getMovie(id!, language));
-    // const {data: credits} = useFetch(() => getMovieCredits(id!, language));
-
-    // const director = credits?.crew?.find((p: any) => p.job === 'Director')?.name || t.unknown;
+    const director = credits?.crew?.find((p: any) => p.job === 'Director')?.name || t.unknown;
 
     if (loading) return <p>{t.loading}</p>;
     if (!movie) return <p>{t.notFounded}</p>;

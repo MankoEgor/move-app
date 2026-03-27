@@ -24,7 +24,7 @@ function reduce<T>(state: State<T>, action: Action<T>): State<T> {
     return state;
 }
 
-export function useFetch<T>(fetchFn: () => Promise<T>){
+export function useFetch<T>(fetchFn: () => Promise<T>, lang: string){
     const [state, dispatch] = useReducer(reduce<T>, {
         loading: true,
         data: null,
@@ -35,8 +35,10 @@ export function useFetch<T>(fetchFn: () => Promise<T>){
         dispatch({type: 'LOADING'})
         fetchFn()
             .then(data => dispatch({type: 'SUCCESS', payload: data}))
-            .catch(() => dispatch({type: 'ERROR', payload: "Не удалось связаться с сервером, проверьте VPN"}))
-    }, []);
+            .catch(() => dispatch({type: 'ERROR', payload: lang === 'ru' 
+                ? "Не удалось связаться с сервером, проверьте VPN" 
+                : "Failed to connect to the server. Please check your VPN"}))
+    }, [lang]);
 
     return state;
 

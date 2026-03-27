@@ -11,7 +11,7 @@ function InfoItem({label, value, prefix}: Info){
     return (
         <div className={s.infoItem}>
             <p className={s.titleInfo }>{label}</p>
-            <p className={label === 'ПРОДЮСЕР' ? s.infoDir : s.info}>
+            <p className={label === 'ПРОДЮСЕР' || label === 'DIRECTOR' ? s.infoDir : s.info}>
                 {prefix && <span>{prefix}</span>}
                 {value}
             </p>
